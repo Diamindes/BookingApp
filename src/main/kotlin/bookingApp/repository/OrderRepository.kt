@@ -1,11 +1,11 @@
 package bookingApp.repository
 
-import bookingApp.repository.entity.OrderEntity
+import bookingApp.repository.entity.Order
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface OrderRepository : JpaRepository<OrderEntity, Int> {
+interface OrderRepository : JpaRepository<Order, Int> {
 
-    fun getById(id: Int): OrderEntity?
+    fun getById(id: Int): Order?
 }

@@ -1,7 +1,7 @@
 package bookingApp.service
 
 import bookingApp.repository.UserRepository
-import bookingApp.repository.entity.UserEntity
+import bookingApp.repository.entity.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -11,11 +11,11 @@ class UserService {
     @Autowired
     private lateinit var userRepository: UserRepository
 
-    fun getDataById(id: Int): UserEntity? {
+    fun getDataById(id: Int): User? {
         return userRepository.getById(id)
     }
 
-    fun saveToDb(data: UserEntity): UserEntity {
+    fun saveToDb(data: User): User {
         return userRepository.save(data)
     }
 }

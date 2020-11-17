@@ -1,11 +1,11 @@
 package bookingApp.repository
 
-import bookingApp.repository.entity.ReservationEntity
+import bookingApp.repository.entity.Reservation
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ReservationRepository : JpaRepository<ReservationEntity, Int> {
+interface ReservationRepository : JpaRepository<Reservation, Int> {
 
-    fun getById(id: Int): ReservationEntity?
+    fun getById(id: Int): Reservation?
 }

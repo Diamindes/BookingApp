@@ -1,7 +1,7 @@
 package bookingApp.service
 
 import bookingApp.repository.IngredientRepository
-import bookingApp.repository.entity.IngredientEntity
+import bookingApp.repository.entity.Ingredient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -11,11 +11,11 @@ class IngredientService {
     @Autowired
     private lateinit var ingredientRepository: IngredientRepository
 
-    fun getDataById(id: Int): IngredientEntity? {
+    fun getDataById(id: Int): Ingredient? {
         return ingredientRepository.getById(id)
     }
 
-    fun saveToDb(data: IngredientEntity): IngredientEntity {
+    fun saveToDb(data: Ingredient): Ingredient {
         return ingredientRepository.save(data)
     }
 }

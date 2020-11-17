@@ -1,7 +1,7 @@
 package bookingApp.service
 
 import bookingApp.repository.RestaurantRepository
-import bookingApp.repository.entity.RestaurantEntity
+import bookingApp.repository.entity.Restaurant
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -11,11 +11,11 @@ class RestaurantService {
     @Autowired
     private lateinit var restaurantRepository: RestaurantRepository
 
-    fun getDataById(id: Int): RestaurantEntity? {
+    fun getDataById(id: Int): Restaurant? {
         return restaurantRepository.getById(id)
     }
 
-    fun saveToDb(data: RestaurantEntity): RestaurantEntity {
+    fun saveToDb(data: Restaurant): Restaurant {
         return restaurantRepository.save(data)
     }
 }

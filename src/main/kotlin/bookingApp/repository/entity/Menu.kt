@@ -6,22 +6,22 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
+import javax.persistence.ManyToMany
+import javax.persistence.OneToOne
 import javax.persistence.Table
 
 
 @Entity
-@Table(name =  "tables")
-class TableEntity (
+@Table(name = "menus")
+class Menu (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id : Int? = null,
 
-        @ManyToOne
+        @OneToOne
         @JoinColumn(name = "restaurantId", referencedColumnName = "id")
         val restaurant: Restaurant,
 
-        val numberName:Int,
-        val numberOfSeats : Int,
-        val IsNearTheWindow : Boolean
+        @ManyToMany
+        val dishesList: MutableList<Dish>
 ): Serializable

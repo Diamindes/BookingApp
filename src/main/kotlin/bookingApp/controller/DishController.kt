@@ -1,7 +1,7 @@
 package bookingApp.controller
 
-import bookingApp.repository.entity.DishEntity
-import bookingApp.repository.entity.IngredientEntity
+import bookingApp.repository.entity.Dish
+import bookingApp.repository.entity.Ingredient
 import bookingApp.service.DishService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,7 +17,7 @@ class DishController {
     private lateinit var dishService: DishService
 
     @GetMapping("/dishGet")
-    fun getData(index: Int): DishEntity? {
+    fun getData(index: Int): Dish? {
         return dishService.getDataById(index)
     }
 
@@ -28,4 +28,4 @@ class DishController {
 }
 
 data class dishDto(val name: String,
-                   val ingredientsList: MutableList<IngredientEntity>)
+                   val ingredientsList: MutableList<Ingredient>)

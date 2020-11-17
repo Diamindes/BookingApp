@@ -2,7 +2,6 @@ package bookingApp.repository.entity
 
 import java.io.Serializable
 import java.sql.Date
-import java.util.*
 import javax.persistence.*
 
 @Entity

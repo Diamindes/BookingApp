@@ -6,11 +6,11 @@ spring:
   security:
     user:
       name: admin
-      password: admin
+      password: 123456
   datasource:
     url: jdbc:postgresql://localhost:5432/testDatabase
     username: postgres
-    password: admin
+    password: 123456
     hikari:
       connectionTimeout: 20000
       maximumPoolSize: 5

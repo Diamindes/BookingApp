@@ -1,5 +1,14 @@
 package bookingApp.repository.entity
 
-enum class OrderTypeEntity {
-    HERE, WITHMYSELF, DELIVERY
-}
+import java.io.Serializable
+import javax.persistence.*
+
+@Entity
+@Table(name = "BookingTable")
+class OrderTypeEntity (
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        var id : Int? = null,
+
+        val name: String,
+): Serializable

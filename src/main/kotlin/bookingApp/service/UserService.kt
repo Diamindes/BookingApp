@@ -1,5 +1,6 @@
 package bookingApp.service
 
+import bookingApp.controller.UserLoginDto
 import bookingApp.repository.UserRepository
 import bookingApp.repository.entity.User
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,5 +18,9 @@ class UserService {
 
     fun saveToDb(data: User): User {
         return userRepository.save(data)
+    }
+
+    fun isUserExist(user: UserLoginDto): Boolean {
+        return userRepository.isUserExist(user)
     }
 }

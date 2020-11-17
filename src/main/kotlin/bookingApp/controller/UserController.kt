@@ -20,18 +20,28 @@ class UserController {
     }
 
     @PostMapping(path = ["/registerUser"])
-    fun postData(@RequestBody input: UserDto): String {
-        return "Received user data -  ${input.login}"
+    fun registerUser(@RequestBody input: UserDto): String {
+        return "Register user with login -  ${input.login}"
+    }
+
+    @PostMapping(path = ["/login"])
+    fun loginUser(@RequestBody input: UserLoginDto): Boolean {
+        return userService.isUserExist(input)
     }
 }
 
-data class UserDto(var login: String? = "",
-                   var password: String? = "",
-                   var fullname: String = "",
-                   var telephone: String? = "",
-                   var roleType: RoleType = RoleType.USER,
-                   var restaurant: Restaurant? = null,
-                   val reservations: MutableList<Reservation> = mutableListOf(),
-                   val orders: MutableList<Order> = mutableListOf(),
+data class UserDto(var login: String,
+                   var password: String,
+                   var fullname: String,
+                   var telephone: String,
+                   var roleType: RoleType,
+                   val restaurant: Restaurant,
+                   val reservations: MutableList<Reservation>,
+                   val orders: MutableList<Order>,
                    val favoriteDishes: MutableList<Dish> = mutableListOf()
+)
+
+data class UserLoginDto(val login: String,
+                        var password: String,
+                        var telephone: String
 )

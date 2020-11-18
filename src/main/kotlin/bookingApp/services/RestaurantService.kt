@@ -18,4 +18,8 @@ class RestaurantService {
     fun saveToDb(data: Restaurant): Restaurant {
         return restaurantRepository.save(data)
     }
+
+    fun getAllRestaurants(): List<Restaurant> {
+        return restaurantRepository.findAll()
+    }
 }

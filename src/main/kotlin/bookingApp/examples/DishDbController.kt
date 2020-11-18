@@ -1,6 +1,7 @@
-package bookingApp.controllers
+package bookingApp.examples
 
 import bookingApp.repositories.entity.Dish
+import bookingApp.repositories.entity.Ingredient
 import bookingApp.services.DishService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -18,13 +19,26 @@ class DishDbController {
     @Autowired
     private lateinit var dishService: DishService
 
-    @GetMapping("/dishGet/{id}")
+    @GetMapping("/dishDbGet/{id}")
     fun getFromDb(@PathVariable id: Int): Dish? {
         return dishService.getDataById(id)
     }
 
-    @PostMapping(path = ["/dishPost"], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping(path = ["/dishDbPost"], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun saveToDb(@RequestBody data: Dish): Dish {
         return dishService.saveToDb(data)
     }
+
+    @GetMapping("/dishGet")
+    fun getData(index: Int): Dish? {
+        return dishService.getDataById(index)
+    }
+
+    @PostMapping(path = ["/dishPost"])
+    fun postData(@RequestBody input: dishDto): String {
+        return "Received data -  ${input.name} and ${input.ingredientsList}"
+    }
 }
+
+data class dishDto(val name: String,
+                   val ingredientsList: MutableList<Ingredient>)

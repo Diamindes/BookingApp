@@ -14,12 +14,12 @@ class ReservationController {
     private lateinit var reservationService: ReservationService
 
     @GetMapping("/{reservationId}")
-    fun getReservation(@PathVariable reservationId: Int): Reservation? {
+    fun getReservation(@PathVariable userId: Int, @PathVariable reservationId: Int): Reservation? {
         return reservationService.getDataById(reservationId)
     }
 
     @PostMapping(path = ["/newReservation"])
-    fun addReservation(@RequestBody reservation: ReservationDto): Reservation {
+    fun addReservation(@PathVariable userId: Int, @RequestBody reservation: ReservationDto): Reservation {
         return reservationService.saveToDb(reservation)
     }
 }

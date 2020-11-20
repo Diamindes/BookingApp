@@ -11,11 +11,12 @@ class MenuService {
     @Autowired
     private lateinit var menuRepository: MenuRepository
 
-    fun getDataById(id: Int): Menu? {
-        return menuRepository.getById(id)
+    fun getMenuByRestaurant(restaurantId: Int): Menu? {
+        return RestaurantService().getDataById(restaurantId)?.menu
     }
 
     fun saveToDb(data: Menu): Menu {
         return menuRepository.save(data)
     }
+
 }

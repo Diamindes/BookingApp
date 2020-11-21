@@ -1,7 +1,7 @@
 package bookingApp.controllers
 
 import bookingApp.repositories.entity.User
-import bookingApp.services.UserService
+import bookingApp.services.UserServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.*
 class UserController {
 
     @Autowired
-    private lateinit var userService: UserService
+    private lateinit var userService: UserServiceImpl
 
     @GetMapping("/{userId}")
     fun getUser(@PathVariable userId: Int): User? = userService.getById(userId)
 
     @PostMapping(path = ["/register"])
-    fun registerUser(@RequestBody user: UserDto): User = userService.save(user)
+    fun registerUser(@RequestBody user: UserDto): User = userService.register(user)
 
 
     @PostMapping(path = ["/login"])
     fun loginUser(@RequestBody userLogin: UserLoginDto): String {
-        return "{ \"userExists\": \"${userService.isUserExist(userLogin)}\" }"
+        return "{ \"userExists\": \"${userService.login(userLogin)}\" }"
     }
 }
 

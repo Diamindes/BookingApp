@@ -1,6 +1,7 @@
 package bookingApp.services
 
 import bookingApp.repositories.MenuRepository
+import bookingApp.repositories.entity.Dish
 import bookingApp.repositories.entity.Menu
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -18,5 +19,8 @@ class MenuService {
     fun saveToDb(data: Menu): Menu {
         return menuRepository.save(data)
     }
+
+    fun getDishes(restaurantId: Int): List<Dish> =
+            getMenuByRestaurant(restaurantId)?.dishesList ?: emptyList()
 
 }

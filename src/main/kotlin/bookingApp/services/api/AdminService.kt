@@ -1,9 +1,10 @@
 package bookingApp.services.api
 
+import bookingApp.controllers.UserDto
 import bookingApp.repositories.entity.User
 
 interface AdminService {
-    fun createWaiter(user: User): String
-    fun deleteWaiter(user: User): String
-    fun associateWaiterWithTable(): Boolean
+    fun registerEmployee(user: UserDto): User
+    fun deleteEmployee(user: User): String
+    fun associateWaiterWithTable(userId: Int, tableId: Int): Boolean
 }

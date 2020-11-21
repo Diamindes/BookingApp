@@ -4,7 +4,6 @@ import bookingApp.controllers.UserDto
 import bookingApp.controllers.UserLoginDto
 import bookingApp.repositories.UserRepository
 import bookingApp.repositories.entity.Reservation
-import bookingApp.repositories.entity.RoleType
 import bookingApp.repositories.entity.User
 import bookingApp.services.api.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,7 +26,7 @@ class UserServiceImpl : UserService {
                         password = data.password,
                         fullname = data.fullname,
                         telephone = data.telephone,
-                        roleType = RoleType.USER
+                        roleType = data.role
                 )
         )
     }

@@ -1,5 +1,6 @@
 package bookingApp.controllers
 
+import bookingApp.repositories.entity.RoleType
 import bookingApp.repositories.entity.User
 import bookingApp.services.UserServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,7 +29,8 @@ class UserController {
 data class UserDto(var login: String,
                    var password: String,
                    var fullname: String,
-                   var telephone: String
+                   var telephone: String,
+                   var role: RoleType
 )
 
 data class UserLoginDto(val login: String, var password: String)

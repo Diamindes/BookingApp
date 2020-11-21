@@ -5,6 +5,7 @@ import bookingApp.repositories.entity.User
 
 interface AdminService {
     fun registerEmployee(user: UserDto): User
-    fun deleteEmployee(user: User): String
+    fun deleteEmployee(userId: Int): String
+    fun getEmployees(restaurantId: Int): List<User>
     fun associateWaiterWithTable(userId: Int, tableId: Int): Boolean
 }

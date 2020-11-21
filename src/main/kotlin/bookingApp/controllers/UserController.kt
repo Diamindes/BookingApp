@@ -26,11 +26,13 @@ class UserController {
     }
 }
 
-data class UserDto(var login: String,
-                   var password: String,
-                   var fullname: String,
-                   var telephone: String,
-                   var role: RoleType
+data class UserDto(
+        var id: Int,
+        var login: String,
+        var password: String,
+        var fullname: String,
+        var telephone: String,
+        var role: RoleType
 )
 
 data class UserLoginDto(val login: String, var password: String)

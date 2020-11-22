@@ -18,4 +18,14 @@ class TableService {
     fun saveToDb(data: TableEntity): TableEntity {
         return tableRepository.save(data)
     }
+
+    fun setEmployee(employeeId: Int, tableId: Int): Boolean {
+        val entity = tableRepository.getById(tableId)
+        return if (entity != null) {
+            entity.employeeId = employeeId
+            true
+        } else {
+            false
+        }
+    }
 }

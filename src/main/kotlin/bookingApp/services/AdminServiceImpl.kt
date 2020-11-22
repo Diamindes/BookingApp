@@ -24,8 +24,11 @@ class AdminServiceImpl : UserServiceImpl(), AdminService {
         return userRepository.findAll().filter { it.restaurant?.id ?: -1 >= 0 }
     }
 
-    override fun associateWaiterWithTable(userId: Int, tableId: Int): Boolean {
-        return true
+    override fun associateWaiterWithTable(employeeId: Int, tableId: Int): Boolean {
+        return TableService().setEmployee(employeeId, tableId)
     }
 
+    override fun getAssociationsWithTable(restaurantId: Int): List<Pair<Int, Int>> =
+            RestaurantService().getDataById(restaurantId)?.tables?.map { it -> Pair(it.numberName, it.employeeId) }
+                    ?: emptyList()
 }

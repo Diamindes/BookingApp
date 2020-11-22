@@ -8,4 +8,5 @@ interface AdminService {
     fun deleteEmployee(userId: Int): String
     fun getEmployees(restaurantId: Int): List<User>
     fun associateWaiterWithTable(userId: Int, tableId: Int): Boolean
+    fun getAssociationsWithTable(restaurantId: Int): List<Pair<Int, Int>>
 }

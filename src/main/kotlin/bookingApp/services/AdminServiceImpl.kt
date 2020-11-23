@@ -5,7 +5,9 @@ import bookingApp.repositories.UserRepository
 import bookingApp.repositories.entity.User
 import bookingApp.services.api.AdminService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
+@Service
 class AdminServiceImpl : UserServiceImpl(), AdminService {
 
     @Autowired

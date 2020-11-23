@@ -1,6 +1,7 @@
 package bookingApp.controllers
 
 import bookingApp.repositories.entity.User
+import bookingApp.services.AdminServiceImpl
 import bookingApp.services.api.AdminService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 class AdminController {
 
     @Autowired
-    private lateinit var adminService: AdminService
+    private lateinit var adminService: AdminServiceImpl
 
     @PostMapping(path = ["/registerEmployee"])
     fun registerEmployee(@RequestBody user: UserDto): User = adminService.registerEmployee(user)

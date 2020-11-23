@@ -4,12 +4,14 @@ import bookingApp.repositories.entity.RoleType
 import bookingApp.repositories.entity.User
 import bookingApp.services.UserServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path = ["/users"])
 class UserController {
 
+    @Qualifier("user_service")
     @Autowired
     private lateinit var userService: UserServiceImpl
 

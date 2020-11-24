@@ -1,17 +1,20 @@
 package bookingApp.controllers
 
 import bookingApp.repositories.entity.User
-import bookingApp.services.AdminServiceImpl
-import bookingApp.services.api.AdminService
+import bookingApp.services.api.UserService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(path = ["/{adminId}"])
+@RequestMapping(path = ["/admin"])
 class AdminController {
 
     @Autowired
-    private lateinit var adminService: AdminServiceImpl
+    private lateinit var adminService: UserService
 
     @PostMapping(path = ["/registerEmployee"])
     fun registerEmployee(@RequestBody user: UserDto): User = adminService.registerEmployee(user)

@@ -41,12 +41,6 @@ allOpen {
 	annotation("javax.persistence.Embeddable")
 }
 
-/*tasks.withType<Test> {
-
-	useJUnitPlatform()
-}*/
-
-
 
 tasks.test {
 	useJUnitPlatform()

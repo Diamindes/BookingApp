@@ -4,12 +4,12 @@ import bookingApp.controllers.UserDto
 import bookingApp.repositories.UserRepository
 import bookingApp.repositories.entity.RoleType
 import bookingApp.repositories.entity.User
-import bookingApp.services.AdminServiceImpl
-import bookingApp.services.UserServiceImpl
+import bookingApp.services.api.UserService
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.notNull
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -26,17 +26,21 @@ class AdminServiceTests {
     private lateinit var userRepository: UserRepository
 
     @Autowired
-    private lateinit var adminService: AdminServiceImpl
-
+    private lateinit var adminService: UserService
 
     @Test
     fun `register employee`() {
-        val user = UserDto(0, "user", "user", "user user", "8545", RoleType.WAITER)
-        val expected = User(0, "user", "user", "user user", "8545", RoleType.WAITER)
-        adminService.register(user)
-        given(this.userRepository.getById(any()))
+        val user = UserDto(1, "user", "user", "user user", "8545", RoleType.WAITER)
+        val expected = User(1, "user", "user", "user user", "8545", RoleType.WAITER)
+
+        given(this.userRepository.getById(anyInt()))
                 .willReturn(expected)
-        val newRegisteredUser = UserServiceImpl().getById(0)
+        given(this.userRepository.save(notNull()))
+                .willReturn(expected)
+
+        adminService.register(user)
+
+        val newRegisteredUser = adminService.getById(1)
         assertEquals("Users not equals", expected, newRegisteredUser)
     }
     /*

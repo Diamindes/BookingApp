@@ -1,5 +1,6 @@
 package bookingApp
 
+//import org.junit.jupiter.api.Test
 import bookingApp.repositories.UserRepository
 import bookingApp.repositories.entity.RoleType
 import bookingApp.repositories.entity.User
@@ -8,9 +9,8 @@ import junit.framework.TestCase.assertEquals
 import org.assertj.core.api.JUnitSoftAssertions
 import org.junit.Rule
 import org.junit.Test
-//import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -39,14 +39,16 @@ class UserServiceTests {
         softly.assertThat(userService.getReservations(0)).isEmpty()
     }
 
+
     @Test
     fun `get user by id`() {
         val expected = User(0, "user", "user", "user user", "8545", RoleType.WAITER)
-        given(this.userRepository.getById(any()))
+        given(this.userRepository.getById(anyInt()))
                 .willReturn(expected)
         val newRegisteredUser = userService.getById(0)
         assertEquals(expected, newRegisteredUser)
     }
+
 
     /*
     fun getReservations(userId: Int): List<Reservation>

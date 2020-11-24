@@ -2,40 +2,33 @@ package bookingApp.repositories.entity
 
 import java.io.Serializable
 import java.sql.Date
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.OneToOne
-import javax.persistence.Table
+import javax.persistence.*
 
 
 @Entity
 @Table(name = "reservations")
-class Reservation (
+class Reservation(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id : Int? = null,
+        var id: Int? = null,
 
         @ManyToOne
         @JoinColumn(name = "userId", referencedColumnName = "id")
-        val user: User,
+        var user: User,
 
         @ManyToOne
         @JoinColumn(name = "restaurantId", referencedColumnName = "id")
-        val restaurant: Restaurant,
+        var restaurant: Restaurant,
 
         @ManyToOne
         @JoinColumn(name = "tableId", referencedColumnName = "id")
-        val table: TableEntity,
+        var table: TableEntity,
 
         @OneToOne
         @JoinColumn(name = "orderId", referencedColumnName = "id")
-        val order : Order,
+        var order: Order,
 
-        val dateStartReservation : Date,
-        val dateEndReservation : Date,
-        val dateCreateReservation : Date
+        val dateStartReservation: Date,
+        val dateEndReservation: Date,
+        val dateCreateReservation: Date
 ): Serializable

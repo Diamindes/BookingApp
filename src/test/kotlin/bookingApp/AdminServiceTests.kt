@@ -9,7 +9,7 @@ import bookingApp.services.UserServiceImpl
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -34,7 +34,7 @@ class AdminServiceTests {
         val user = UserDto(0, "user", "user", "user user", "8545", RoleType.WAITER)
         val expected = User(0, "user", "user", "user user", "8545", RoleType.WAITER)
         adminService.register(user)
-        given(this.userRepository.getById(any()))
+        given(this.userRepository.getById(anyInt()))
                 .willReturn(expected)
         val newRegisteredUser = UserServiceImpl().getById(0)
         assertEquals("Users not equals", expected, newRegisteredUser)

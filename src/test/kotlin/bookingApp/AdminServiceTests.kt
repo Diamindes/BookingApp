@@ -8,7 +8,6 @@ import bookingApp.services.AdminServiceImpl
 import bookingApp.services.UserServiceImpl
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-//import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
 import org.mockito.BDDMockito.given

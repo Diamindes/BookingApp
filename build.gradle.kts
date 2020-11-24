@@ -23,7 +23,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("io.springfox:springfox-swagger2:2.9.2")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
+	implementation("com.h2database:h2:1.4.197")
 	implementation("org.testng:testng:6.14.3")
+
 
 
 	runtimeOnly("org.postgresql:postgresql")
@@ -39,7 +41,14 @@ allOpen {
 	annotation("javax.persistence.Embeddable")
 }
 
-tasks.withType<Test> {
+/*tasks.withType<Test> {
+
+	useJUnitPlatform()
+}*/
+
+
+
+tasks.test {
 	useJUnitPlatform()
 }
 

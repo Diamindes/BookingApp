@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: h2
+  server:
+    port: 8080
+  security:
+    user:
+      name: admin
+      password: 123456
+  datasource:
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.H2Dialect
+      ddl-auto: create
+      show-sql: true
+  h2:
+    console:
+      enabled: true

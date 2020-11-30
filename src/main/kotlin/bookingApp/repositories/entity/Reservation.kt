@@ -1,7 +1,6 @@
 package bookingApp.repositories.entity
 
 import java.io.Serializable
-import java.sql.Date
 import javax.persistence.*
 
 
@@ -22,13 +21,13 @@ class Reservation(
 
         @ManyToOne
         @JoinColumn(name = "tableId", referencedColumnName = "id")
-        var table: TableEntity,
+        var table: TableEntity? = null,
 
         @OneToOne
         @JoinColumn(name = "orderId", referencedColumnName = "id")
-        var order: Order,
+        var order: Order? = null,
 
-        val dateStartReservation: Date,
-        val dateEndReservation: Date,
-        val dateCreateReservation: Date
+        val dateStartReservation: Long,
+        val dateEndReservation: Long,
+        val dateCreateReservation: Long
 ): Serializable

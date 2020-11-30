@@ -1,18 +1,9 @@
 package bookingApp.controllers
 
-import bookingApp.repositories.entity.Order
-import bookingApp.repositories.entity.Reservation
-import bookingApp.repositories.entity.Restaurant
-import bookingApp.repositories.entity.TableEntity
-import bookingApp.repositories.entity.User
+import bookingApp.repositories.entity.*
 import bookingApp.services.ReservationService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.sql.Date
 
 @RestController
@@ -31,6 +22,9 @@ class ReservationController {
     fun addReservation(@PathVariable userId: Int, @RequestBody reservation: ReservationDto): Reservation {
         return reservationService.saveToDb(reservation)
     }
+
+    @GetMapping("")
+    fun getReservations(@PathVariable userId: Int): List<Reservation> = reservationService.getReservations(userId)
 }
 
 class ReservationDto(

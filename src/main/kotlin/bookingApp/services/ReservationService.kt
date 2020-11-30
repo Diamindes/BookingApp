@@ -29,4 +29,8 @@ class ReservationService {
                 )
         )
     }
+
+    fun getReservations(userId: Int): List<Reservation> {
+        return reservationRepository.findAll().filter { it.user.id == userId }
+    }
 }

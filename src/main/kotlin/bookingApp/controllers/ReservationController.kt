@@ -7,24 +7,30 @@ import org.springframework.web.bind.annotation.*
 import java.sql.Date
 
 @RestController
-@RequestMapping(path = ["/users/{userId}/reservations"])
+@RequestMapping(path = [""])
 class ReservationController {
 
     @Autowired
     private lateinit var reservationService: ReservationService
 
-    @GetMapping("/{reservationId}")
+    @GetMapping("/users/{userId}/reservations/{reservationId}")
     fun getReservation(@PathVariable userId: Int, @PathVariable reservationId: Int): Reservation? {
         return reservationService.getDataById(reservationId)
     }
 
-    @PostMapping(path = ["/reserve"])
+    @PostMapping(path = ["/users/{userId}/reserve"])
     fun addReservation(@PathVariable userId: Int, @RequestBody reservation: ReservationDto): Reservation {
         return reservationService.saveToDb(reservation)
     }
 
-    @GetMapping("")
-    fun getReservations(@PathVariable userId: Int): List<Reservation> = reservationService.getReservations(userId)
+    @GetMapping("/users/{userId}/reservations")
+    fun getReservationsByUser(@PathVariable userId: Int): List<Reservation> = reservationService.getReservationsByUser(userId)
+
+    @GetMapping("/admins/{adminId}/reservations")
+    fun getReservationsByAdmin(@PathVariable adminId: Int): List<Reservation> = reservationService.getReservationsByAdmin(adminId)
+
+    @GetMapping("/waiters/{waiterId}/reservations")
+    fun getReservationsByWaiter(@PathVariable waiterId: Int): List<Reservation> = reservationService.getReservationsByWaiter(waiterId)
 }
 
 class ReservationDto(

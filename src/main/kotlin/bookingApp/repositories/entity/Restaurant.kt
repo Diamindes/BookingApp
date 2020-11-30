@@ -21,9 +21,10 @@ class Restaurant(
         val tables: MutableList<TableEntity>? = mutableListOf(),
 
         @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
-        val reservations: MutableList<Reservation> = mutableListOf()
+        val reservations: MutableList<Reservation> = mutableListOf(),
 
-        //        @OneToMany(mappedBy = "restaurant")
-        //        val ordersList:MutableList<Order> = mutableListOf()
-        ///??? val employeeList: MutableList<EmployeeEntity> = mutableListOf(),
+        @OneToMany(mappedBy = "restaurant")
+        val employeeList: MutableList<User> = mutableListOf(),
+
+//        val ordersList:MutableList<Order> = mutableListOf()
 ) : Serializable

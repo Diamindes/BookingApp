@@ -11,10 +11,10 @@ data class User(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Int? = null,
 
-        var login: String?,
-        var password: String?,
-        var fullname: String?,
-        var telephone: String?,
+        var login: String? = "",
+        var password: String? = "",
+        var fullname: String? = "",
+        var telephone: String? = "",
 
         // employee
         @Enumerated(EnumType.STRING)
@@ -36,4 +36,4 @@ data class User(
                 joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
                 inverseJoinColumns = [JoinColumn(name = "dish_id", referencedColumnName = "id")])
         val favoriteDishes: MutableList<Dish> = mutableListOf(),
-): Serializable
+) : Serializable

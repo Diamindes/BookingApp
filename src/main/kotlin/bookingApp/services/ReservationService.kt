@@ -23,10 +23,24 @@ class ReservationService {
                         restaurant = data.restaurant,
                         table = data.table,
                         order = data.order,
-                        dateCreateReservation = data.dateCreateReservation,
-                        dateStartReservation = data.dateStartReservation,
-                        dateEndReservation = data.dateEndReservation
+                        dateCreateReservation = 0,
+                        dateStartReservation = 0,
+                        dateEndReservation = 0
                 )
         )
+    }
+
+    fun getReservationsByUser(userId: Int): List<Reservation> {
+        return reservationRepository.findAll().filter { it.user.id == userId }
+    }
+
+    fun getReservationsByAdmin(adminId: Int): List<Reservation> {
+        val restaurantId: Int = UserServiceImpl().getById(adminId)?.restaurant?.id ?: return emptyList()
+        return reservationRepository.findAll().filter { it.restaurant.id == restaurantId }
+    }
+
+    fun getReservationsByWaiter(waiterId: Int): List<Reservation> {
+        val restaurantId: Int = UserServiceImpl().getById(waiterId)?.restaurant?.id ?: return emptyList()
+        return reservationRepository.findAll().filter { it.restaurant.id == restaurantId }.filter { it.table?.employeeId == waiterId }
     }
 }

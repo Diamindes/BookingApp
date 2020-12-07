@@ -19,3 +19,10 @@ spring:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: create
       show-sql: true
+  camunda.bpm:
+    admin-user:
+      id: admin
+      password: admin
+      firstName: La
+    filter:
+      create: All tasks

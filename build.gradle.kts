@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.4.0"
 	id("io.spring.dependency-management") version "1.0.10.RELEASE"
+	kotlin("plugin.allopen") version "1.4.10"
 	kotlin("jvm") version "1.4.10"
 	kotlin("plugin.spring") version "1.4.10"
 	kotlin("plugin.jpa") version "1.4.10"
@@ -26,7 +27,11 @@ dependencies {
 	implementation("com.h2database:h2:1.4.197")
 	implementation("org.testng:testng:6.14.3")
 
-
+	//comunda
+	implementation("org.springframework.boot:spring-boot-dependencies:2.4.0")
+	implementation("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.14.0")
+	implementation("com.sun.xml.bind:jaxb-impl:2.2.3")
+	implementation("org.springframework.boot:spring-boot-maven-plugin:2.4.0")
 
 	runtimeOnly("org.postgresql:postgresql")
 

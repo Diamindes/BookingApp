@@ -46,9 +46,13 @@ allOpen {
 	annotation("javax.persistence.Embeddable")
 }
 
-
-tasks.test {
-	useJUnitPlatform()
+tasks {
+	compileKotlin {
+		kotlinOptions.jvmTarget = "11"
+	}
+	compileTestKotlin {
+		kotlinOptions.jvmTarget = "11"
+	}
 }
 
 tasks.withType<KotlinCompile> {

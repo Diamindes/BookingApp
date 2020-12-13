@@ -8,17 +8,17 @@ spring:
       name: admin
       password: 123456
   datasource:
-    url: jdbc:postgresql://localhost:5432/testDatabase
-    username: postgres
-    password: 123456
+    url: ${PG_URL:jdbc:postgresql://localhost:5432/testDatabase}
+    username: ${PG_USER:postgres}
+    password: ${PG_PASSWORD:123456}
     hikari:
       connectionTimeout: 20000
-      maximumPoolSize: 5
+      maximumPoolSize: 10
   jpa:
     hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
-      ddl-auto: create
-      show-sql: true
+      ddl-auto: update
+
   camunda.bpm:
     admin-user:
       id: admin

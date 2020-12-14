@@ -9,6 +9,7 @@ import bookingApp.repositories.entity.User
 import bookingApp.services.UserServiceImpl
 import junit.framework.TestCase.assertEquals
 import org.assertj.core.api.JUnitSoftAssertions
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,6 +37,7 @@ class UserServiceTests {
     var softly = JUnitSoftAssertions()
 
     @Test
+    @Ignore
     fun `'getReservations' should retrieve empty list if repository doesn't contain entities`() {
         softly.assertThat(userService.getReservations(0)).isEmpty()
     }

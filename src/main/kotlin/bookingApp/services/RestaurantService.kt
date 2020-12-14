@@ -17,7 +17,7 @@ class RestaurantService {
     @Autowired
     private lateinit var restaurantRepository: RestaurantRepository
 
-    fun getDataById(id: Int): Restaurant? {
+    fun getById(id: Int): Restaurant {
         return restaurantRepository.getById(id)
     }
 

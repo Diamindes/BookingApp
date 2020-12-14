@@ -1,6 +1,7 @@
 package bookingApp
 
 import bookingApp.controllers.UserDto
+import bookingApp.repositories.RestaurantRepository
 import bookingApp.repositories.UserRepository
 import bookingApp.repositories.entity.RoleType
 import bookingApp.repositories.entity.User
@@ -25,6 +26,9 @@ class AdminServiceTests {
     @MockBean
     private lateinit var userRepository: UserRepository
 
+    @MockBean
+    private lateinit var restaurantRepository: RestaurantRepository
+
     @Autowired
     private lateinit var adminService: UserService
 
@@ -38,7 +42,7 @@ class AdminServiceTests {
         given(this.userRepository.save(notNull()))
                 .willReturn(expected)
 
-        adminService.register(user)
+        adminService.registerEmployee(user, 1)
 
         val newRegisteredUser = adminService.getById(1)
         assertEquals("Users not equals", expected, newRegisteredUser)

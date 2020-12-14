@@ -13,7 +13,7 @@ class MenuService {
     private lateinit var menuRepository: MenuRepository
 
     fun getMenuByRestaurant(restaurantId: Int): Menu? {
-        return RestaurantService().getDataById(restaurantId)?.menu
+        return RestaurantService().getById(restaurantId).menu
     }
 
     fun saveToDb(data: Menu): Menu {

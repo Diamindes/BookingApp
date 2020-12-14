@@ -34,5 +34,5 @@ class RestaurantController {
     }
 
     @GetMapping(path = ["/{restaurantId}"])
-    fun getRestaurantById(@PathVariable restaurantId: Int) = restaurantService.getDataById(restaurantId)
+    fun getRestaurantById(@PathVariable restaurantId: Int) = restaurantService.getById(restaurantId)
 }

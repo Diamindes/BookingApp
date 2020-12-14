@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface TableRepository : JpaRepository<TableEntity, Int> {
 
-    fun getById(id: Int): TableEntity?
+    fun getById(id: Int): TableEntity
+    fun getByRestaurantId(restaurantId: Int): List<TableEntity>
 }

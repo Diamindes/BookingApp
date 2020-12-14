@@ -35,12 +35,12 @@ class ReservationService {
     }
 
     fun getReservationsByAdmin(adminId: Int): List<Reservation> {
-        val restaurantId: Int = UserServiceImpl().getById(adminId)?.restaurant?.id ?: return emptyList()
+        val restaurantId: Int = UserServiceImpl().getById(adminId).restaurant?.id ?: return emptyList()
         return reservationRepository.findAll().filter { it.restaurant.id == restaurantId }
     }
 
-    fun getReservationsByWaiter(waiterId: Int): List<Reservation> {
+/*    fun getReservationsByWaiter(waiterId: Int): List<Reservation> {
         val restaurantId: Int = UserServiceImpl().getById(waiterId)?.restaurant?.id ?: return emptyList()
         return reservationRepository.findAll().filter { it.restaurant.id == restaurantId }.filter { it.table?.employeeId == waiterId }
-    }
+    }*/
 }

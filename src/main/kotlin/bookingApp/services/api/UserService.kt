@@ -7,12 +7,11 @@ import bookingApp.repositories.entity.User
 
 interface UserService {
     fun getReservations(userId: Int): List<Reservation>
-    fun register(data: UserDto): User
     fun login(user: UserLoginDto): Boolean
-    fun getById(id: Int): User?
-    fun registerEmployee(user: UserDto): User
-    fun deleteEmployee(userId: Int): String
-    fun getEmployees(restaurantId: Int): List<User>
-    fun associateWaiterWithTable(userId: Int, tableId: Int): Boolean
-    fun getAssociationsWithTable(restaurantId: Int): List<Pair<Int, Int>>
+    fun getById(id: Int): User
+    fun getByLogin(login: String): User
+    fun registerEmployee(user: UserDto, restaurantId: Int): User
+    fun deleteEmployee(userId: Int, restaurantId: Int)
+    fun getAll(restaurantId: Int): List<User>
+    fun register(user: User): User
 }

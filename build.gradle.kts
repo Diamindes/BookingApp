@@ -27,10 +27,11 @@ dependencies {
 	implementation("com.h2database:h2:1.4.197")
 	implementation("org.testng:testng:6.14.3")
 
-	//comunda
+	//camunda
 	implementation("org.springframework.boot:spring-boot-dependencies:2.4.0")
 	implementation("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:7.14.0")
-	implementation("com.sun.xml.bind:jaxb-impl:2.2.3")
+//	implementation("com.sun.xml.bind:jaxb-impl:2.2.3")
+	implementation("javax.xml.bind:jaxb-api:2.3.0")
 	implementation("org.springframework.boot:spring-boot-maven-plugin:2.4.0")
 
 	runtimeOnly("org.postgresql:postgresql")
@@ -53,6 +54,7 @@ tasks {
 	compileTestKotlin {
 		kotlinOptions.jvmTarget = "11"
 	}
+
 }
 
 tasks.withType<KotlinCompile> {

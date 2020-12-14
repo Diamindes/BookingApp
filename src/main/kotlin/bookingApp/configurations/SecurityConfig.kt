@@ -20,5 +20,6 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
                 .and()
                 .csrf()
                 .disable()
+        http.headers().frameOptions().sameOrigin()
     }
 }

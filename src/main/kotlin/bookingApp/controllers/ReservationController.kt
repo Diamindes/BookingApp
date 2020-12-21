@@ -5,6 +5,7 @@ import bookingApp.services.ReservationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import java.sql.Date
+import java.sql.Timestamp
 
 @RestController
 @RequestMapping(path = [""])
@@ -38,7 +39,7 @@ class ReservationDto(
         val restaurant: Restaurant,
         val table: TableEntity,
         val order: Order,
-        val dateStartReservation: Date,
-        val dateEndReservation: Date,
-        val dateCreateReservation: Date
+        val dateStartReservation: Timestamp,
+        val dateEndReservation: Timestamp,
+        val dateCreateReservation: Timestamp
 )

@@ -23,9 +23,9 @@ class ReservationService {
                         restaurant = data.restaurant,
                         table = data.table,
                         order = data.order,
-                        dateCreateReservation = 0,
-                        dateStartReservation = 0,
-                        dateEndReservation = 0
+                        dateCreateReservation = data.dateCreateReservation,
+                        dateStartReservation = data.dateStartReservation,
+                        dateEndReservation = data.dateEndReservation
                 )
         )
     }

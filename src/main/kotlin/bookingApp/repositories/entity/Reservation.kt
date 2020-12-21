@@ -1,6 +1,7 @@
 package bookingApp.repositories.entity
 
 import java.io.Serializable
+import java.sql.Timestamp
 import javax.persistence.*
 
 
@@ -27,7 +28,7 @@ class Reservation(
         @JoinColumn(name = "orderId", referencedColumnName = "id")
         var order: Order? = null,
 
-        val dateStartReservation: Long,
-        val dateEndReservation: Long,
-        val dateCreateReservation: Long
+        val dateStartReservation: Timestamp,
+        val dateEndReservation: Timestamp,
+        val dateCreateReservation: Timestamp
 ): Serializable

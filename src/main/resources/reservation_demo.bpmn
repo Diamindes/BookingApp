@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1ilohs6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.4.0">
+  <bpmn:process id="Process_14a81u3" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="user_id" label="User ID" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="restaurant_id" label="REstaurant ID " type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0veo6px</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_1f5zo0x">
+      <bpmn:incoming>Flow_0pow8cw</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0veo6px" sourceRef="StartEvent_1" targetRef="Activity_1vi85ak" />
+    <bpmn:sequenceFlow id="Flow_0pow8cw" sourceRef="Activity_1vi85ak" targetRef="Event_1f5zo0x" />
+    <bpmn:serviceTask id="Activity_1vi85ak" name="Reservation activity" camunda:delegateExpression="${performReservationDelegate}">
+      <bpmn:incoming>Flow_0veo6px</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pow8cw</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_14a81u3">
+      <bpmndi:BPMNEdge id="Flow_0veo6px_di" bpmnElement="Flow_0veo6px">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="350" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pow8cw_di" bpmnElement="Flow_0pow8cw">
+        <di:waypoint x="450" y="120" />
+        <di:waypoint x="652" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0ivqhun_di" bpmnElement="Activity_1vi85ak">
+        <dc:Bounds x="350" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1f5zo0x_di" bpmnElement="Event_1f5zo0x">
+        <dc:Bounds x="652" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

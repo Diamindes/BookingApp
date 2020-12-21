@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
+import java.sql.Timestamp
 
 
 @RunWith(SpringRunner::class)
@@ -43,8 +44,8 @@ class UserServiceTests {
     @Test
     fun `get not empty reservations`() {
         val reservations = listOf<Reservation>(
-                Reservation(0, User(roleType = RoleType.USER), Restaurant(0, "rest"), null, null, 1L, 1L, 1L),
-                Reservation(1, User(roleType = RoleType.USER), Restaurant(0, "rest"), null, null, 1L, 1L, 1L))
+                Reservation(0, User(roleType = RoleType.USER), Restaurant(0, "rest"), null, null,  Timestamp(System.currentTimeMillis()), Timestamp(System.currentTimeMillis()), Timestamp(System.currentTimeMillis())),
+                Reservation(1, User(roleType = RoleType.USER), Restaurant(0, "rest"), null, null, Timestamp(System.currentTimeMillis()), Timestamp(System.currentTimeMillis()), Timestamp(System.currentTimeMillis())))
 
     }
 

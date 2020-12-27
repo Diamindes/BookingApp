@@ -26,7 +26,7 @@ dependencies {
 	implementation("com.h2database:h2:1.4.197")
 	implementation("org.testng:testng:6.14.3")
 
-
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
 
 	runtimeOnly("org.postgresql:postgresql")
 

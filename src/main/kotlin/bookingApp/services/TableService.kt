@@ -19,6 +19,10 @@ class TableService {
         return tableRepository.save(data)
     }
 
+    fun getByNumberOfSeats(numOfSeats: Int): TableEntity? {
+        return tableRepository.getByNumberOfSeats(numOfSeats)
+    }
+
     fun setEmployee(employeeId: Int, tableId: Int): Boolean {
         val entity = tableRepository.getById(tableId)
         return if (entity != null) {

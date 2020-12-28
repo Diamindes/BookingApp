@@ -1,11 +1,14 @@
 --ID | NAME | PRICE | TYPE
 insert into dishes values(1, 'TEA', '50', 'Drinks');
+insert into dishes values(2, 'COFFEE', '50', 'Drinks');
 
 --ID | NAME
 insert into ingredients values(1, 'Pocket of tea');
+insert into ingredients values(2, 'Roasted coffee');
 
 -- DISH_ID | INGREDIENT_ID
 insert into dish_ingredient values(1,1);
+insert into dish_ingredient values(2,2);
 
 --ID | NAME | MENU_ID
 insert into restaurants values(1, 'Ginza', null);
@@ -21,11 +24,13 @@ insert into menus_dishes_list values(1,1);
 insert into payments values(1, 1,current_date, 'CARD');
 
 --ID | FULLNAME | LOGIN | PASSWORD | ROLE_TYPE | TELEPHONE | RESTAURANT_ID
-insert into users values(55, 'Jung Brutal Gutaussehend', 'user1', 'user1', 'USER', '+1 111 111', 1);
+insert into users values(55, 'John Smith', 'user1', 'user1', 'USER', '+1 111 111', 1);
 insert into users values(1, 'Mr. Waiter', 'waiter', 'waiter', 'WAITER', '+1 111 222', 1);
+insert into users values(2, 'John Doe', 'waiter1', 'waiter1', 'WAITER', '+1 111 333', 1);
 
 --ID | IS_NEAR_THE_WINDOW | EMPLOYEE_ID | NUMBER_NAME | NUMBER_OF_SEATS | RESTAURANT_ID
 insert into tables values(1, 1, 1, 1, 3, 1);
+insert into tables values(2, 1, 2, 1, 5, 1);
 
 --ID | DATE | ORDER_TYPE | PAYMENT_ID | TABLE_ID | USER_ID
 insert into orders values (1, current_date, 'HERE', 1, 1, 55);

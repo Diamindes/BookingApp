@@ -19,6 +19,10 @@ class UserServiceImpl : UserService {
         return userRepository.getById(id)
     }
 
+    override fun getByPhone(tel: String): User? {
+        return userRepository.getByTelephone(tel)
+    }
+
     override fun register(data: UserDto): User {
         return userRepository.save(
                 User(

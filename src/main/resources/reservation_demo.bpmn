@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1ilohs6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.4.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1ilohs6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.4.0">
   <bpmn:process id="Process_14a81u3" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" name="Enter reservation details">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="user_id" label="User ID" type="string">
+          <camunda:formField id="user_phone" label="User Phone Number" type="string">
             <camunda:validation>
               <camunda:constraint name="required" />
             </camunda:validation>
           </camunda:formField>
-          <camunda:formField id="restaurant_id" label="REstaurant ID " type="string">
+          <camunda:formField id="restaurant_name" label="Restaurant Name " type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="num_of_seat" label="Number of seats" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="reservation_date" label="Reservation date" type="date">
             <camunda:validation>
               <camunda:constraint name="required" />
             </camunda:validation>
@@ -17,16 +27,43 @@
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_0veo6px</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0t93buf</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:endEvent id="Event_1f5zo0x">
-      <bpmn:incoming>Flow_0pow8cw</bpmn:incoming>
+    <bpmn:endEvent id="Event_1f5zo0x" name="Reservation completed">
+      <bpmn:incoming>Flow_02qumm6</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0veo6px" sourceRef="StartEvent_1" targetRef="Activity_1vi85ak" />
-    <bpmn:sequenceFlow id="Flow_0pow8cw" sourceRef="Activity_1vi85ak" targetRef="Event_1f5zo0x" />
     <bpmn:serviceTask id="Activity_1vi85ak" name="Reservation activity" camunda:delegateExpression="${performReservationDelegate}">
       <bpmn:incoming>Flow_0veo6px</bpmn:incoming>
-      <bpmn:outgoing>Flow_0pow8cw</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1eyy8cz</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_18n7g9l" name="Able to reserve">
+      <bpmn:incoming>Flow_1eyy8cz</bpmn:incoming>
+      <bpmn:incoming>Flow_0t93buf</bpmn:incoming>
+      <bpmn:outgoing>Flow_02qumm6</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0gfuzqp</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_02qumm6" name="Yes" sourceRef="Gateway_18n7g9l" targetRef="Event_1f5zo0x">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{reserved}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1eyy8cz" sourceRef="Activity_1vi85ak" targetRef="Gateway_18n7g9l" />
+    <bpmn:sequenceFlow id="Flow_0t93buf" sourceRef="StartEvent_1" targetRef="Gateway_18n7g9l" />
+    <bpmn:endEvent id="Event_1wgxhie" name="Reservation rejected">
+      <bpmn:incoming>Flow_1y5t37f</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0gfuzqp" name="No" sourceRef="Gateway_18n7g9l" targetRef="Activity_02gx4er">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{not reserved}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1y5t37f" sourceRef="Activity_02gx4er" targetRef="Event_1wgxhie" />
+    <bpmn:userTask id="Activity_02gx4er" name="Notification">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="message" label="Unfortunately your reservation rejected" type="string" defaultValue="${message}" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0gfuzqp</bpmn:incoming>
+      <bpmn:outgoing>Flow_1y5t37f</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_14a81u3">
@@ -34,18 +71,61 @@
         <di:waypoint x="188" y="120" />
         <di:waypoint x="350" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0pow8cw_di" bpmnElement="Flow_0pow8cw">
+      <bpmndi:BPMNEdge id="Flow_02qumm6_di" bpmnElement="Flow_02qumm6">
+        <di:waypoint x="625" y="120" />
+        <di:waypoint x="792" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="700" y="102" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1eyy8cz_di" bpmnElement="Flow_1eyy8cz">
         <di:waypoint x="450" y="120" />
-        <di:waypoint x="652" y="120" />
+        <di:waypoint x="575" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0t93buf_di" bpmnElement="Flow_0t93buf">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="575" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gfuzqp_di" bpmnElement="Flow_0gfuzqp">
+        <di:waypoint x="600" y="145" />
+        <di:waypoint x="600" y="190" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="555" y="143" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y5t37f_di" bpmnElement="Flow_1y5t37f">
+        <di:waypoint x="600" y="270" />
+        <di:waypoint x="600" y="352" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_0ivqhun_di" bpmnElement="Activity_1vi85ak">
         <dc:Bounds x="350" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1f5zo0x_di" bpmnElement="Event_1f5zo0x">
-        <dc:Bounds x="652" y="102" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="152" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="128" y="145" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_18n7g9l_di" bpmnElement="Gateway_18n7g9l" isMarkerVisible="true">
+        <dc:Bounds x="575" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="564" y="65" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1f5zo0x_di" bpmnElement="Event_1f5zo0x">
+        <dc:Bounds x="792" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="781" y="145" width="59" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1wgxhie_di" bpmnElement="Event_1wgxhie">
+        <dc:Bounds x="582" y="352" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="571" y="395" width="59" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0mtb2d0_di" bpmnElement="Activity_02gx4er">
+        <dc:Bounds x="550" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

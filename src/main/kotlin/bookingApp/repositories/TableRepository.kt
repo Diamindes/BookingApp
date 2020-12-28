@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository
 interface TableRepository : JpaRepository<TableEntity, Int> {
 
     fun getById(id: Int): TableEntity?
+    fun getByNumberOfSeats (numOfSeats : Int) : TableEntity?
 }

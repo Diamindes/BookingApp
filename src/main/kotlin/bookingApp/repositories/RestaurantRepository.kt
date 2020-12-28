@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository
 interface RestaurantRepository : PagingAndSortingRepository<Restaurant, Int>, JpaSpecificationExecutor<Restaurant> {
 
     fun getById(id: Int): Restaurant?
+    fun getByName(name : String): Restaurant?
 }

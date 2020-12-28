@@ -15,4 +15,5 @@ interface UserService {
     fun getEmployees(restaurantId: Int): List<User>
     fun associateWaiterWithTable(userId: Int, tableId: Int): Boolean
     fun getAssociationsWithTable(restaurantId: Int): List<Pair<Int, Int>>
+    fun getByPhone(tel : String) : User?
 }

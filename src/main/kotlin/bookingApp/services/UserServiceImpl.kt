@@ -7,6 +7,7 @@ import bookingApp.repositories.entity.Reservation
 import bookingApp.repositories.entity.User
 import bookingApp.services.api.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
@@ -23,7 +24,7 @@ class UserServiceImpl : UserService {
         return userRepository.save(
                 User(
                         login = data.login,
-                        password = data.password,
+                        password = BCryptPasswordEncoder().encode(data.password),
                         fullname = data.fullname,
                         telephone = data.telephone,
                         roleType = data.role

@@ -23,12 +23,6 @@ class UserController {
 
     @PostMapping(path = ["/register"])
     fun registerUser(@RequestBody user: UserDto): User = userService.register(user)
-
-
-    @PostMapping(path = ["/login"])
-    fun loginUser(@RequestBody userLogin: UserLoginDto): String {
-        return "{ \"userExists\": \"${userService.login(userLogin)}\" }"
-    }
 }
 
 data class UserDto(var id: Int,
@@ -38,8 +32,7 @@ data class UserDto(var id: Int,
                    var telephone: String,
                    var role: RoleType) {
 
-    companion object {
-    }
+    companion object
 }
 
-data class UserLoginDto(val login: String, var password: String)
+data class UserLoginDto(val login: String, var password: String?, var role: String)

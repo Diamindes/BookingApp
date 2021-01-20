@@ -2,11 +2,10 @@ package bookingApp.configurations
 
 import bookingApp.configurations.filters.AuthenticationFilter
 import bookingApp.configurations.filters.AuthorizationFilter
-import bookingApp.controllers.SecurityService
 import bookingApp.repositories.UserRepository
+import bookingApp.services.SecurityService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -33,16 +32,7 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
         http
                 .cors().and().csrf().disable()
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.POST,
-                            "/users/register",
-                            "/v2/api-docs",
-                            "/swagger-resources",
-                            "/swagger-resources/**",
-                            "/configuration/ui",
-                            "/configuration/security",
-                            "/swagger-ui.html",
-                            "/webjars/**").permitAll()
-                    .anyRequest().authenticated()
+                    .anyRequest().permitAll()
                 .and()
                     .addFilter(AuthenticationFilter(authenticationManager()))
                     .addFilter(AuthorizationFilter(authenticationManager()))

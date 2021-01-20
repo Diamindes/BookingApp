@@ -1,7 +1,17 @@
 package bookingApp.repositories.entity
 
 import java.io.Serializable
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
+import javax.persistence.Table
 
 
 @Entity
@@ -16,7 +26,6 @@ data class User(
         var fullname: String? = "",
         var telephone: String? = "",
 
-        // employee
         @Enumerated(EnumType.STRING)
         val roleType: RoleType,
 
@@ -24,16 +33,6 @@ data class User(
         @JoinColumn(name = "restaurantId", referencedColumnName = "id")
         val restaurant: Restaurant? = null,
 
-        // customer
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
         val reservations: MutableList<Reservation> = mutableListOf(),
-
-        @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-        val orders: MutableList<Order> = mutableListOf(),
-
-        @ManyToMany
-        @JoinTable(name = "user_dish",
-                joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
-                inverseJoinColumns = [JoinColumn(name = "dish_id", referencedColumnName = "id")])
-        val favoriteDishes: MutableList<Dish> = mutableListOf(),
 ) : Serializable

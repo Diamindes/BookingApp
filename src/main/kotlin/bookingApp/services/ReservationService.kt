@@ -2,9 +2,13 @@ package bookingApp.services
 
 import bookingApp.controllers.ReservationDto
 import bookingApp.repositories.ReservationRepository
+import bookingApp.repositories.RestaurantRepository
+import bookingApp.repositories.TableRepository
+import bookingApp.repositories.UserRepository
 import bookingApp.repositories.entity.Reservation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import kotlin.streams.toList
 
 @Service
 class ReservationService {
@@ -12,35 +16,47 @@ class ReservationService {
     @Autowired
     private lateinit var reservationRepository: ReservationRepository
 
+    @Autowired
+    private lateinit var tableRepository: TableRepository
+
+    @Autowired
+    private lateinit var restaurantRepository: RestaurantRepository
+
+    @Autowired
+    private lateinit var userRepository: UserRepository
+
     fun getDataById(id: Int): Reservation? {
         return reservationRepository.getById(id)
     }
 
-    fun saveToDb(data: ReservationDto): Reservation {
-        return reservationRepository.save(
-                Reservation(
-                        user = data.user,
-                        restaurant = data.restaurant,
-                        table = data.table,
-                        order = data.order,
-                        dateCreateReservation = 0,
-                        dateStartReservation = 0,
-                        dateEndReservation = 0
+    fun addReservation(data: ReservationDto): ReservationDto {
+        return convertToDto(
+                reservationRepository.save(
+                    Reservation(
+                            user = userRepository.getById(data.userId),
+                            restaurant = restaurantRepository.getById(data.restaurantId),
+                            table = tableRepository.getById(data.tableId)
+                    )
                 )
         )
     }
 
-    fun getReservationsByUser(userId: Int): List<Reservation> {
-        return reservationRepository.findAll().filter { it.user.id == userId }
+    fun cancelReservation(id: Int) {
+        reservationRepository.deleteById(id)
     }
 
-    fun getReservationsByAdmin(adminId: Int): List<Reservation> {
-        val restaurantId: Int = UserServiceImpl().getById(adminId).restaurant?.id ?: return emptyList()
-        return reservationRepository.findAll().filter { it.restaurant.id == restaurantId }
+    fun getAllReservationsByUserId(userId: Int): List<ReservationDto> {
+        return reservationRepository.getByUser(userRepository.getById(userId)).stream()
+                .map(this::convertToDto)
+                .toList()
     }
 
-/*    fun getReservationsByWaiter(waiterId: Int): List<Reservation> {
-        val restaurantId: Int = UserServiceImpl().getById(waiterId)?.restaurant?.id ?: return emptyList()
-        return reservationRepository.findAll().filter { it.restaurant.id == restaurantId }.filter { it.table?.employeeId == waiterId }
-    }*/
+    fun convertToDto(reservation:Reservation): ReservationDto {
+        return ReservationDto(
+                reservationId = reservation.id,
+                userId = reservation.user.id!!,
+                restaurantId = reservation.restaurant.id!!,
+                tableId = reservation.table!!.id!!
+        )
+    }
 }

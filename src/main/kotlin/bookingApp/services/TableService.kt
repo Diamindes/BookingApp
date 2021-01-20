@@ -54,7 +54,7 @@ class TableService {
                 numberName = tableEntity.numberName,
                 numberOfSeats = tableEntity.numberOfSeats,
                 isNearTheWindow = tableEntity.isNearTheWindow,
-                waiterId = tableEntity.waiter.id!!
+                waiterId = tableEntity.waiter?.id!!
         )
     }
 

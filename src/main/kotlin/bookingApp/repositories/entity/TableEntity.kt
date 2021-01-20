@@ -23,7 +23,7 @@ class TableEntity(
 
         @ManyToOne
         @JoinColumn(name = "userId", referencedColumnName = "id")
-        var waiter: User,
+        var waiter: User?,
 
         var isFree: Boolean,
         val numberName: Int,

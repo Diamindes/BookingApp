@@ -24,7 +24,7 @@ class UserServiceImpl : UserService {
         return userRepository.getById(id)
     }
 
-    override fun getByLogin(login: String): User {
+    override fun getByLogin(login: String): User? {
         return userRepository.getByLogin(login)
     }
 
@@ -32,16 +32,23 @@ class UserServiceImpl : UserService {
         return userRepository.save(user)
     }
 
+    override fun register(user: UserDto): User {
+        return register(
+                User(
+                        login = user.login,
+                        password = BCryptPasswordEncoder().encode(user.password),
+                        fullname = user.fullname,
+                        telephone = user.telephone,
+                        roleType = user.role
+                )
+        )
+    }
+
     override fun registerEmployee(user: UserDto, restaurantId: Int): User {
         return register(
                 User(
-                        login = data.login,
-                        password = BCryptPasswordEncoder().encode(data.password),
-                        fullname = data.fullname,
-                        telephone = data.telephone,
-                        roleType = data.role
                         login = user.login,
-                        password = user.password,
+                        password = BCryptPasswordEncoder().encode(user.password),
                         fullname = user.fullname,
                         telephone = user.telephone,
                         roleType = RoleType.WAITER,

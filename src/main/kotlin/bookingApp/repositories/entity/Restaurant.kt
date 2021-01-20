@@ -1,7 +1,13 @@
 package bookingApp.repositories.entity
 
 import java.io.Serializable
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.Table
 
 
 @Entity
@@ -13,18 +19,6 @@ class Restaurant(
 
         val name: String,
 
-        @OneToOne
-        @JoinColumn(name = "menuId", referencedColumnName = "id")
-        val menu: Menu? = null,
-
-        @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
-        val tables: MutableList<TableEntity>? = mutableListOf(),
-
         @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY)
         val reservations: MutableList<Reservation> = mutableListOf(),
-
-        @OneToMany(mappedBy = "restaurant")
-        val employeeList: MutableList<User> = mutableListOf(),
-
-//        val ordersList:MutableList<Order> = mutableListOf()
 ) : Serializable

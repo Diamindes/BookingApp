@@ -1,4 +1,4 @@
-package bookingApp.controllers
+package bookingApp.services
 
 import bookingApp.repositories.UserRepository
 import org.springframework.security.core.GrantedAuthority

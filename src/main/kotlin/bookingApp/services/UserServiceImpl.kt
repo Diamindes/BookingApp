@@ -4,6 +4,7 @@ import bookingApp.controllers.UserDto
 import bookingApp.controllers.UserLoginDto
 import bookingApp.repositories.UserRepository
 import bookingApp.repositories.entity.Reservation
+import bookingApp.repositories.entity.RoleType
 import bookingApp.repositories.entity.User
 import bookingApp.services.api.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,48 +17,62 @@ class UserServiceImpl : UserService {
     @Autowired
     private lateinit var userRepository: UserRepository
 
-    override fun getById(id: Int): User? {
+    @Autowired
+    private lateinit var restaurantService: RestaurantService
+
+    override fun getById(id: Int): User {
         return userRepository.getById(id)
     }
 
-    override fun register(data: UserDto): User {
-        return userRepository.save(
+    override fun getByLogin(login: String): User? {
+        return userRepository.getByLogin(login)
+    }
+
+    override fun register(user: User): User {
+        return userRepository.save(user)
+    }
+
+    override fun register(user: UserDto): User {
+        return register(
                 User(
-                        login = data.login,
-                        password = BCryptPasswordEncoder().encode(data.password),
-                        fullname = data.fullname,
-                        telephone = data.telephone,
-                        roleType = data.role
+                        login = user.login,
+                        password = BCryptPasswordEncoder().encode(user.password),
+                        fullname = user.fullname,
+                        telephone = user.telephone,
+                        roleType = user.role
                 )
         )
+    }
+
+    override fun registerEmployee(user: UserDto, restaurantId: Int): User {
+        return register(
+                User(
+                        login = user.login,
+                        password = BCryptPasswordEncoder().encode(user.password),
+                        fullname = user.fullname,
+                        telephone = user.telephone,
+                        roleType = RoleType.WAITER,
+                        restaurant = restaurantService.getById(restaurantId)
+                )
+        )
+    }
+
+    override fun getAll(restaurantId: Int): List<User> {
+        return userRepository.getByRestaurantId(restaurantId)
+    }
+
+    override fun deleteEmployee(userId: Int, restaurantId: Int) {
+        val user = userRepository.getById(userId)
+        if (user.roleType == RoleType.WAITER && user.restaurant?.id == restaurantId){
+            userRepository.deleteById(userId)
+        }
+    }
+
+    override fun getReservations(id: Int): List<Reservation> {
+        return getById(id).reservations
     }
 
     override fun login(user: UserLoginDto): Boolean {
         return userRepository.existsByLogin(user.login)
     }
-
-    override fun getReservations(id: Int): List<Reservation> {
-        return getById(id)?.reservations ?: emptyList()
-    }
-
-    override fun registerEmployee(user: UserDto): User {
-        return register(data = user)
-    }
-
-    override fun deleteEmployee(userId: Int): String {
-        userRepository.deleteById(userId)
-        return "Waiter deleted"
-    }
-
-    override fun getEmployees(restaurantId: Int): List<User> {
-        return userRepository.findAll().filter { it.restaurant?.id ?: -1 >= 0 }
-    }
-
-    override fun associateWaiterWithTable(employeeId: Int, tableId: Int): Boolean {
-        return TableService().setEmployee(employeeId, tableId)
-    }
-
-    override fun getAssociationsWithTable(restaurantId: Int): List<Pair<Int, Int>> =
-            RestaurantService().getDataById(restaurantId)?.tables?.map { it -> Pair(it.numberName, it.employeeId) }
-                    ?: emptyList()
 }

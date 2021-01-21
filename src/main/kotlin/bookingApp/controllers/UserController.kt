@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.security.Principal
 
 @RestController
 @RequestMapping(path = ["/users"])
@@ -23,14 +24,17 @@ class UserController {
 
     @PostMapping(path = ["/register"])
     fun registerUser(@RequestBody user: UserDto): User = userService.register(user)
+
+    @GetMapping("/profile")
+    fun getProfile(principal: Principal): UserDto? = userService.getByLogin(principal.name)
 }
 
-data class UserDto(var id: Int,
+data class UserDto(var id: Int?,
                    var login: String,
                    var password: String,
-                   var fullname: String,
-                   var telephone: String,
-                   var role: RoleType) {
+                   var fullname: String?,
+                   var telephone: String?,
+                   var role: RoleType?) {
 
     companion object
 }

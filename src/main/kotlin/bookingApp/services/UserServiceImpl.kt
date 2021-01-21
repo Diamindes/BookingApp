@@ -24,8 +24,16 @@ class UserServiceImpl : UserService {
         return userRepository.getById(id)
     }
 
-    override fun getByLogin(login: String): User? {
-        return userRepository.getByLogin(login)
+    override fun getByLogin(login: String): UserDto? {
+        val profile = userRepository.getByLogin(login)
+        return UserDto(
+            id = profile.id,
+            login = profile.login,
+            password = profile.password,
+            fullname = profile.fullname,
+            telephone = profile.telephone,
+            role = profile.roleType,
+        )
     }
 
     override fun register(user: User): User {

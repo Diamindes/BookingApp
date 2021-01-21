@@ -21,13 +21,13 @@ data class User(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Int? = null,
 
-        var login: String? = "",
-        var password: String? = "",
+        var login: String,
+        var password: String,
         var fullname: String? = "",
         var telephone: String? = "",
 
         @Enumerated(EnumType.STRING)
-        val roleType: RoleType,
+        val roleType: RoleType?,
 
         @ManyToOne
         @JoinColumn(name = "restaurantId", referencedColumnName = "id")

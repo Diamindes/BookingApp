@@ -13,6 +13,14 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
+	maven {
+		url = uri("http://jasperreports.sourceforge.net/maven2/")
+	}
+
+	maven {
+		url = uri("http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/")
+
+	}
 }
 
 dependencies {
@@ -33,6 +41,10 @@ dependencies {
 //	implementation("com.sun.xml.bind:jaxb-impl:2.2.3")
 	implementation("javax.xml.bind:jaxb-api:2.3.0")
 	implementation("org.springframework.boot:spring-boot-maven-plugin:2.4.0")
+	// https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports
+	implementation ( "net.sf.jasperreports:jasperreports:6.1.0")
+
+
 
 	runtimeOnly("org.postgresql:postgresql")
 

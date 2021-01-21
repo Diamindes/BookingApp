@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.15.0.final using JasperReports Library version 6.15.0-dd49bfb94918336b8321d5507193f0169ead4e95  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="Blank_A4" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20"
+              rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec5f3018-c167-4e5e-82c1-4a6e29fefab1">
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+    <queryString>
+        <![CDATA[select ord.date, ord.order_type as "Order type", pay.payment_type as "Payment type",
+u.fullname as "Visitor Name", res.date_create_reservation as "Reservation date",
+rest.name as Restaurant, sum(cast(di.price as int)) as Total
+from orders ord
+join payments pay on pay.id = ord.payment_id
+join users u on u.id = ord.user_id
+join reservations res on res.order_id = ord.id
+join restaurants rest on rest.id = res.RESTAURANT_ID
+join orders_dishes od on od.order_id = ord.id
+join dishes di on di.id = od.dishes_id;]]>
+    </queryString>
+    <field name="DATE" class="java.lang.String"/>
+    <field name="Order type" class="java.lang.String"/>
+    <field name="Payment type" class="java.lang.String"/>
+    <field name="Visitor name" class="java.lang.String"/>
+    <field name="Reservation date" class="java.lang.String"/>
+    <field name="RESTAURANT" class="java.lang.String"/>
+    <field name="TOTAL" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="79" splitType="Stretch">
+            <staticText>
+                <reportElement x="180" y="10" width="301" height="51" uuid="3644c1ae-b672-4659-9b98-2068ff99613a"/>
+                <textElement textAlignment="Center">
+                    <font size="12"/>
+                </textElement>
+                <text><![CDATA[Reservations summary:]]></text>
+            </staticText>
+        </band>
+    </title>
+    <detail>
+        <band height="150" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="100" height="20" uuid="351acda8-c725-4eeb-b724-5a26d10d3d2e"/>
+                <textFieldExpression><![CDATA[$F{DATE}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="70" y="0" width="100" height="20" uuid="d5aaf32b-a904-44c2-b89f-967283f73712"/>
+                <textFieldExpression><![CDATA[$F{Order type}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="170" y="0" width="100" height="20" uuid="58f8e9ed-efaa-411b-8707-2458429d6e06"/>
+                <textFieldExpression><![CDATA[$F{Payment type}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="280" y="0" width="130" height="20" uuid="de072671-0dc8-4dbb-8d9e-1c33c45ddebb"/>
+                <textFieldExpression><![CDATA[$F{Visitor name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="420" y="0" width="100" height="20" uuid="3e4c5f39-bb5f-40fd-a2a4-9a021a50184c"/>
+                <textFieldExpression><![CDATA[$F{Reservation date}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="540" y="0" width="100" height="20" uuid="88c87dab-7bf3-40c1-9b92-fac864cc7081"/>
+                <textFieldExpression><![CDATA[$F{RESTAURANT}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="670" y="0" width="85" height="20" uuid="d29ef336-1658-4479-9251-06904eaee2ca"/>
+                <textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

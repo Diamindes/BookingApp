@@ -1,6 +1,7 @@
 package bookingApp.repositories.entity
 
 import java.io.Serializable
+import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Enumerated
 import javax.persistence.GeneratedValue
@@ -18,7 +19,9 @@ data class User(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Int? = null,
 
+        @Column(unique = true)
         var login: String,
+
         var password: String,
         var fullname: String? = "",
         var telephone: String? = "",

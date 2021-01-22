@@ -27,12 +27,13 @@ class UserServiceImpl : UserService {
     override fun getByLogin(login: String): UserDto? {
         val profile = userRepository.getByLogin(login)
         return UserDto(
-            id = profile.id,
-            login = profile.login,
-            password = profile.password,
-            fullname = profile.fullname,
-            telephone = profile.telephone,
-            role = profile.roleType,
+                id = profile.id,
+                login = profile.login,
+                password = profile.password,
+                fullname = profile.fullname,
+                telephone = profile.telephone,
+                role = profile.roleType,
+                restaurantId = profile.restaurant?.id
         )
     }
 

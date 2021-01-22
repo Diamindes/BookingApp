@@ -34,8 +34,8 @@ data class UserDto(var id: Int?,
                    var password: String,
                    var fullname: String?,
                    var telephone: String?,
-                   var role: RoleType) {
-
+                   var role: RoleType,
+                   var restaurantId: Int?) {
     companion object
 }
 

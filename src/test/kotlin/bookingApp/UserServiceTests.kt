@@ -40,14 +40,6 @@ class UserServiceTests {
         softly.assertThat(userService.getReservations(0)).isEmpty()
     }
 
-//    @Test
-//    fun `get not empty reservations`() {
-//        val reservations = listOf<Reservation>(
-//                Reservation(0, User(roleType = RoleType.USER), Restaurant(0, "rest"), null, null, 1L, 1L, 1L),
-//                Reservation(1, User(roleType = RoleType.USER), Restaurant(0, "rest"), null, null, 1L, 1L, 1L))
-//
-//    }
-
     @Test
     fun `get user by id`() {
         val expected = User(0, "user", "user", "user user", "8545", RoleType.WAITER)

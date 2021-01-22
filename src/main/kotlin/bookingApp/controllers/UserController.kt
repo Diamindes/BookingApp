@@ -39,4 +39,4 @@ data class UserDto(var id: Int?,
     companion object
 }
 
-data class UserLoginDto(val login: String, var password: String?, var role: String)
+data class UserLoginDto(val login: String, var password: String?)

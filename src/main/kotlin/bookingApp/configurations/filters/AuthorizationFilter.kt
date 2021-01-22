@@ -38,10 +38,7 @@ class AuthorizationFilter(authenticationManager: AuthenticationManager?) : Basic
                     .parseClaimsJws(token.replace("Bearer", ""))
                     .body
                     .subject)
-
-            val objects = ArrayList<SimpleGrantedAuthority>()
-            objects.add(SimpleGrantedAuthority(userData.role))
-            return UsernamePasswordAuthenticationToken(userData.login, null, objects)
+            return UsernamePasswordAuthenticationToken(userData.login, null, null)
         }
         return null
     }

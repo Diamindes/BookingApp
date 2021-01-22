@@ -15,14 +15,6 @@ class SecurityService(private val userRepository: UserRepository) : UserDetailsS
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(login: String): UserDetails {
         val userAuth = userRepository.getByLogin(login)
-        if (userAuth != null) {
-            val authorities: MutableList<GrantedAuthority> = ArrayList()
-            authorities.add(SimpleGrantedAuthority("ROLE_" + userAuth.roleType.toString().toUpperCase()))
-            return User(
-                    userAuth.login,
-                    userAuth.password,
-                    authorities)
-        }
-        throw UsernameNotFoundException(" User $login not found!")
+        return User(userAuth.login, userAuth.password, Collections.emptyList())
     }
 }

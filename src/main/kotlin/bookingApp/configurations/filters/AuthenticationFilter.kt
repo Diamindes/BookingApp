@@ -22,9 +22,7 @@ class AuthenticationFilter(authenticationManager: AuthenticationManager) : Usern
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
         return try {
             val user: UserLoginDto = jacksonObjectMapper().readValue(request.inputStream)
-            val objects = ArrayList<SimpleGrantedAuthority>()
-            objects.add(SimpleGrantedAuthority(user.role))
-            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(user.login, user.password, objects))
+            authenticationManager.authenticate(UsernamePasswordAuthenticationToken(user.login, user.password, null))
         } catch (e: IOException) {
             throw RuntimeException("Could not read request$e")
         }
@@ -34,7 +32,7 @@ class AuthenticationFilter(authenticationManager: AuthenticationManager) : Usern
         var userPrincipal = authResult.principal as User
 
         val token = Jwts.builder()
-                .setSubject(jacksonObjectMapper().writeValueAsString(UserLoginDto(userPrincipal.username, userPrincipal.password, userPrincipal.authorities.first().authority)))
+                .setSubject(jacksonObjectMapper().writeValueAsString(UserLoginDto(userPrincipal.username, userPrincipal.password)))
                 .setExpiration(Date(System.currentTimeMillis() + 864000000))
                 .signWith(SignatureAlgorithm.HS512, "SecretKeyToGenJWTs".toByteArray())
                 .compact()

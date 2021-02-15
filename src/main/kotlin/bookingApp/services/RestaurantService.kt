@@ -1,5 +1,6 @@
 package bookingApp.services
 
+import bookingApp.controllers.RestaurantDto
 import bookingApp.repositories.RestaurantRepository
 import bookingApp.repositories.entity.Restaurant
 import bookingApp.services.utils.FilterDTO
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
 import javax.persistence.criteria.Root
+import kotlin.streams.toList
 
 
 @Service
@@ -21,12 +23,17 @@ class RestaurantService {
         return restaurantRepository.getById(id)
     }
 
-    fun saveToDb(data: Restaurant): Restaurant {
-        return restaurantRepository.save(data)
+    fun saveToDb(data: Restaurant): Restaurant = restaurantRepository.save(data)
+
+    fun getAllRestaurants(): List<RestaurantDto> {
+        return restaurantRepository.findAll()
+                .map(this::convertRestaurants)
+                .toList()
     }
 
-    fun getAllRestaurants(): MutableIterable<Restaurant> {
-        return restaurantRepository.findAll()
+
+    private fun convertRestaurants(restaurant: Restaurant): RestaurantDto {
+        return RestaurantDto(restaurant.id, restaurant.name)
     }
 
     fun getByCriteria(pageRequest: PageRequestHolder): Page<Restaurant>? {

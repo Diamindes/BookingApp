@@ -21,9 +21,7 @@ class RestaurantController {
     private lateinit var restaurantService: RestaurantService
 
     @GetMapping
-    fun getRestaurantsList(): MutableIterable<Restaurant> {
-        return restaurantService.getAllRestaurants()
-    }
+    fun getRestaurantsList(): List<RestaurantDto> = restaurantService.getAllRestaurants()
 
     @GetMapping("/filter")
     fun getRestaurantsByFilter(
@@ -41,3 +39,8 @@ class RestaurantController {
     @GetMapping(path = ["/{restaurantId}"])
     fun getRestaurantById(@PathVariable restaurantId: Int) = restaurantService.getById(restaurantId)
 }
+
+class RestaurantDto(
+        var id: Int?,
+        val name: String
+)

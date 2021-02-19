@@ -23,6 +23,12 @@ class TableService {
         return tableRepository.getById(id)
     }
 
+    fun getByUserId(userId: Int, restaurantId: Int): List<ManagerController.TableDto> {
+        return tableRepository.getByWaiterAndRestaurantId(userService.getById(userId), restaurantId)
+                .map(this::convertToDto)
+                .toList()
+    }
+
     fun getAll(restaurantId: Int): List<TableEntity> {
         return tableRepository.getByRestaurantId(restaurantId)
     }

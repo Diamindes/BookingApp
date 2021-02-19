@@ -37,6 +37,9 @@ class ManagerController {
     @GetMapping(path = ["/tables"])
     fun getAllTables(@PathVariable restaurantId: Int): List<TableEntity> = tableService.getAll(restaurantId)
 
+    @GetMapping(path = ["/{userId}/tables"])
+    fun getByUserId(@PathVariable restaurantId: Int, @PathVariable userId: Int): List<TableDto> = tableService.getByUserId(userId, restaurantId)
+
     @PostMapping(path = ["/tables/add"])
     fun addNewTable(@PathVariable restaurantId: Int, @RequestBody tableDto: TableDto): TableDto = tableService.registerTable(tableDto, restaurantId)
 

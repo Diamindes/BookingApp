@@ -1,6 +1,6 @@
 package bookingApp.services
 
-import bookingApp.controllers.ManagerController
+import bookingApp.controllers.OperationController
 import bookingApp.repositories.TableRepository
 import bookingApp.repositories.entity.TableEntity
 import bookingApp.services.api.UserService
@@ -23,17 +23,19 @@ class TableService {
         return tableRepository.getById(id)
     }
 
-    fun getByUserId(userId: Int, restaurantId: Int): List<ManagerController.TableDto> {
+    fun getByUserId(userId: Int, restaurantId: Int): List<OperationController.TableDto> {
         return tableRepository.getByWaiterAndRestaurantId(userService.getById(userId), restaurantId)
                 .map(this::convertToDto)
                 .toList()
     }
 
-    fun getAll(restaurantId: Int): List<TableEntity> {
+    fun getAll(restaurantId: Int): List<OperationController.TableDto> {
         return tableRepository.getByRestaurantId(restaurantId)
+                .map(this::convertToDto)
+                .toList()
     }
 
-    fun registerTable(tableDto: ManagerController.TableDto, restaurantId: Int): ManagerController.TableDto {
+    fun registerTable(tableDto: OperationController.TableDto, restaurantId: Int): OperationController.TableDto {
         return convertToDto(tableRepository.save(convertToEntity(tableDto, restaurantId)))
     }
 
@@ -41,20 +43,20 @@ class TableService {
         tableRepository.deleteById(tableId)
     }
 
-    fun changeStatus(tableId: Int, isFree: Boolean): ManagerController.TableDto {
+    fun changeStatus(tableId: Int, isFree: Boolean): OperationController.TableDto {
         val table = tableRepository.getById(tableId)
         table.isFree = isFree
         return convertToDto(tableRepository.save(table))
     }
 
-    fun changeAssign(tableId: Int, userId: Int): ManagerController.TableDto {
+    fun changeAssign(tableId: Int, userId: Int): OperationController.TableDto {
         val table = tableRepository.getById(tableId)
         table.waiter = userService.getById(userId)
         return convertToDto(tableRepository.save(table))
     }
 
-    fun convertToDto(tableEntity: TableEntity): ManagerController.TableDto {
-        return ManagerController.TableDto(
+    fun convertToDto(tableEntity: TableEntity): OperationController.TableDto {
+        return OperationController.TableDto(
                 id = tableEntity.id,
                 isFree = tableEntity.isFree,
                 numberName = tableEntity.numberName,
@@ -64,7 +66,7 @@ class TableService {
         )
     }
 
-    fun convertToEntity(tableDto: ManagerController.TableDto, restaurantId: Int): TableEntity {
+    fun convertToEntity(tableDto: OperationController.TableDto, restaurantId: Int): TableEntity {
         return TableEntity(
                 id = tableDto.id,
                 isFree = tableDto.isFree,

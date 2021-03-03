@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(path = ["/restaurants/{restaurantId}/manager"])
-class ManagerController {
+@RequestMapping(path = ["/restaurants/{restaurantId}"])
+class OperationController {
 
     @Autowired
     private lateinit var userService: UserService
@@ -35,7 +35,7 @@ class ManagerController {
     fun deleteEmployee(@PathVariable restaurantId: Int, @RequestParam userId: Int) = userService.deleteEmployee(userId, restaurantId)
 
     @GetMapping(path = ["/tables"])
-    fun getAllTables(@PathVariable restaurantId: Int): List<TableEntity> = tableService.getAll(restaurantId)
+    fun getAllTables(@PathVariable restaurantId: Int): List<TableDto> = tableService.getAll(restaurantId)
 
     @GetMapping(path = ["/{userId}/tables"])
     fun getByUserId(@PathVariable restaurantId: Int, @PathVariable userId: Int): List<TableDto> = tableService.getByUserId(userId, restaurantId)
@@ -47,10 +47,10 @@ class ManagerController {
     fun deleteTable(@PathVariable restaurantId: Int, @RequestParam tableId: Int) = tableService.deleteTable(tableId, restaurantId)
 
     @PostMapping(path = ["/tables/assign"])
-    fun assignTable(@RequestParam tableId: Int, @RequestParam userId: Int): TableDto = tableService.changeAssign(tableId, userId)
+    fun assignTable(@PathVariable restaurantId: Int,@RequestParam tableId: Int, @RequestParam userId: Int): TableDto = tableService.changeAssign(tableId, userId)
 
     @PutMapping(path = ["/tables/changeStatus"])
-    fun changeTableStatus(@RequestParam tableId: Int, @RequestParam isFree: Boolean): TableDto = tableService.changeStatus(tableId, isFree)
+    fun changeTableStatus(@PathVariable restaurantId: Int, @RequestParam tableId: Int, @RequestParam isFree: Boolean): TableDto = tableService.changeStatus(tableId, isFree)
 
     data class TableDto(var id: Int?, val isFree: Boolean, val numberName: Int, val numberOfSeats: Int, val isNearTheWindow: Boolean, val waiterId: Int)
 }

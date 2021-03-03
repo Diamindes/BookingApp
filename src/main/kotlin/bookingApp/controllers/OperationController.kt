@@ -1,7 +1,6 @@
 package bookingApp.controllers
 
 import bookingApp.controllers.convertors.UserConverter
-import bookingApp.repositories.entity.User
 import bookingApp.services.TableService
 import bookingApp.services.api.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -32,7 +31,7 @@ class OperationController {
     fun getAllEmployees(@PathVariable restaurantId: Int) = userConverter.convertAllToDto(userService.getAll(restaurantId))
 
     @PostMapping(path = ["/workers/add"])
-    fun registerEmployee(@PathVariable restaurantId: Int, @RequestBody user: UserDto): User = userService.registerEmployee(user, restaurantId)
+    fun registerEmployee(@PathVariable restaurantId: Int, @RequestBody user: UserDto): UserDto = userConverter.convertToDto(userService.registerEmployee(user, restaurantId))
 
     @DeleteMapping(path = ["/workers/delete"])
     fun deleteEmployee(@PathVariable restaurantId: Int, @RequestParam userId: Int) = userService.deleteEmployee(userId, restaurantId)

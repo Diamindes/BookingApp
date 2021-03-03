@@ -24,17 +24,8 @@ class UserServiceImpl : UserService {
         return userRepository.getById(id)
     }
 
-    override fun getByLogin(login: String): UserDto? {
-        val profile = userRepository.getByLogin(login)
-        return UserDto(
-                id = profile.id,
-                login = profile.login,
-                password = profile.password,
-                fullname = profile.fullname,
-                telephone = profile.telephone,
-                role = profile.roleType,
-                restaurantId = profile.restaurant?.id
-        )
+    override fun getByLogin(login: String): User {
+        return userRepository.getByLogin(login)
     }
 
     override fun register(user: User): User {
@@ -60,7 +51,7 @@ class UserServiceImpl : UserService {
                         password = BCryptPasswordEncoder().encode(user.password),
                         fullname = user.fullname,
                         telephone = user.telephone,
-                        roleType = RoleType.WAITER,
+                        roleType = user.role,
                         restaurant = restaurantService.getById(restaurantId)
                 )
         )

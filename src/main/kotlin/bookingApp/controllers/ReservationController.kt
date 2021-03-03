@@ -1,6 +1,6 @@
 package bookingApp.controllers
 
-import bookingApp.repositories.entity.Reservation
+import bookingApp.controllers.convertors.ReservationConverter
 import bookingApp.services.ReservationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,17 +15,20 @@ class ReservationController {
     @Autowired
     private lateinit var reservationService: ReservationService
 
+    @Autowired
+    private lateinit var reservationConverter: ReservationConverter
+
     @GetMapping("/users/{userId}/reservations/{reservationId}")
-    fun getReservation(@PathVariable userId: Int, @PathVariable reservationId: Int): Reservation? = reservationService.getDataById(reservationId)
+    fun getReservation(@PathVariable userId: Int, @PathVariable reservationId: Int): ReservationDto? = reservationConverter.convertToDto(reservationService.getDataById(reservationId)!!)
 
     @PostMapping(path = ["/users/{userId}/reserve"])
-    fun addReservation(@PathVariable userId: Int, @RequestBody reservation: ReservationDto): ReservationDto = reservationService.addReservation(reservation)
+    fun addReservation(@PathVariable userId: Int, @RequestBody reservation: ReservationDto): ReservationDto = reservationConverter.convertToDto(reservationService.addReservation(reservation))
 
     @GetMapping("/users/{userId}/reservations/{reservationId}/cancel")
     fun cancelReservation(@PathVariable userId: Int, @PathVariable reservationId: Int) = reservationService.cancelReservation(reservationId)
 
     @GetMapping("/users/{userId}/reservations")
-    fun getAllUserReservations(@PathVariable userId: Int): List<ReservationDto> = reservationService.getAllReservationsByUserId(userId)
+    fun getAllUserReservations(@PathVariable userId: Int): List<ReservationDto> = reservationConverter.convertAllToDto(reservationService.getAllReservationsByUserId(userId))
 }
 
 class ReservationDto(

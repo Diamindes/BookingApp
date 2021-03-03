@@ -1,6 +1,6 @@
 package bookingApp.controllers
 
-import bookingApp.repositories.entity.TableEntity
+import bookingApp.controllers.convertors.UserConverter
 import bookingApp.repositories.entity.User
 import bookingApp.services.TableService
 import bookingApp.services.api.UserService
@@ -25,8 +25,11 @@ class OperationController {
     @Autowired
     private lateinit var tableService: TableService
 
+    @Autowired
+    private lateinit var userConverter: UserConverter
+
     @GetMapping(path =["/workers"])
-    fun getAllEmployees(@PathVariable restaurantId: Int) = userService.getAll(restaurantId)
+    fun getAllEmployees(@PathVariable restaurantId: Int) = userConverter.convertAllToDto(userService.getAll(restaurantId))
 
     @PostMapping(path = ["/workers/add"])
     fun registerEmployee(@PathVariable restaurantId: Int, @RequestBody user: UserDto): User = userService.registerEmployee(user, restaurantId)

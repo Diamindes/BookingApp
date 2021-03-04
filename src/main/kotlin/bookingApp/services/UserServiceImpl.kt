@@ -24,6 +24,10 @@ class UserServiceImpl : UserService {
         return userRepository.getById(id)
     }
 
+    override fun deleteById(id: Int) {
+        userRepository.deleteById(id)
+    }
+
     override fun getByLogin(login: String): User {
         return userRepository.getByLogin(login)
     }

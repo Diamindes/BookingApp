@@ -25,15 +25,8 @@ class RestaurantService {
 
     fun saveToDb(data: Restaurant): Restaurant = restaurantRepository.save(data)
 
-    fun getAllRestaurants(): List<RestaurantDto> {
+    fun getAllRestaurants(): Iterable<Restaurant> {
         return restaurantRepository.findAll()
-                .map(this::convertRestaurants)
-                .toList()
-    }
-
-
-    private fun convertRestaurants(restaurant: Restaurant): RestaurantDto {
-        return RestaurantDto(restaurant.id, restaurant.name)
     }
 
     fun getByCriteria(pageRequest: PageRequestHolder): Page<Restaurant>? {

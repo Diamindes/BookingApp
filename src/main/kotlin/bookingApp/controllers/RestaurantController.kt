@@ -1,6 +1,7 @@
 package bookingApp.controllers
 
 import bookingApp.repositories.entity.Restaurant
+import bookingApp.controllers.convertors.RestaurantConverter
 import bookingApp.services.RestaurantService
 import bookingApp.services.utils.PageRequestHolder
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,8 +21,11 @@ class RestaurantController {
     @Autowired
     private lateinit var restaurantService: RestaurantService
 
+    @Autowired
+    private lateinit var restaurantConverter: RestaurantConverter
+
     @GetMapping
-    fun getRestaurantsList(): List<RestaurantDto> = restaurantService.getAllRestaurants()
+    fun getRestaurantsList(): List<RestaurantDto> = restaurantConverter.convertAllToDto(restaurantService.getAllRestaurants())
 
     @GetMapping("/filter")
     fun getRestaurantsByFilter(
@@ -37,10 +41,11 @@ class RestaurantController {
     fun addRestaurant(@RequestBody restaurant: Restaurant): Restaurant = restaurantService.saveToDb(restaurant)
 
     @GetMapping(path = ["/{restaurantId}"])
-    fun getRestaurantById(@PathVariable restaurantId: Int) = restaurantService.getById(restaurantId)
+    fun getRestaurantById(@PathVariable restaurantId: Int) = restaurantConverter.convertToDto(restaurantService.getById(restaurantId))
 }
 
 class RestaurantDto(
         var id: Int?,
-        val name: String
+        val name: String,
+        val reservations: List<ReservationDto>
 )

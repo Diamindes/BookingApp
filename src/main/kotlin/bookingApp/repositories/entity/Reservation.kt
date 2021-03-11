@@ -29,7 +29,7 @@ class Reservation(
         @JoinColumn(name = "tableId", referencedColumnName = "id")
         var table: TableEntity? = null,
 
-        var reservationStartTime: Int?,
+        var reservationStartTime: Long?,
 
-        var reservationEndTime: Int?
+        var reservationEndTime: Long?
 ): Serializable

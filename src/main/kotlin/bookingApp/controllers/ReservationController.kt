@@ -36,6 +36,6 @@ class ReservationDto(
         val userId: Int,
         val restaurantId: Int,
         val tableId: Int,
-        val reservationStartTime: Int,
-        val reservationEndTime: Int
+        val reservationStartTime: Int?,
+        val reservationEndTime: Int?
 )

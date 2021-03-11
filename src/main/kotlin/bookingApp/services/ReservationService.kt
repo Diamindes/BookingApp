@@ -33,7 +33,9 @@ class ReservationService {
                 Reservation(
                         user = userRepository.getById(data.userId),
                         restaurant = restaurantRepository.getById(data.restaurantId),
-                        table = tableRepository.getById(data.tableId)
+                        table = tableRepository.getById(data.tableId),
+                        reservationStartTime = data.reservationStartTime,
+                        reservationEndTime = data.reservationEndTime
                 )
         )
     }

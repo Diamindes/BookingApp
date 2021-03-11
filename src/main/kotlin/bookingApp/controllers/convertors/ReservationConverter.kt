@@ -12,7 +12,9 @@ class ReservationConverter {
                 reservationId = reservation.id,
                 userId = reservation.user.id!!,
                 restaurantId = reservation.restaurant.id!!,
-                tableId = reservation.table!!.id!!
+                tableId = reservation.table!!.id!!,
+                reservationStartTime = reservation.reservationStartTime,
+                reservationEndTime = reservation.reservationEndTime
         )
     }
 

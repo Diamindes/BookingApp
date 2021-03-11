@@ -28,4 +28,8 @@ class Reservation(
         @ManyToOne
         @JoinColumn(name = "tableId", referencedColumnName = "id")
         var table: TableEntity? = null,
+
+        var reservationStartTime: Int,
+
+        var reservationEndTime: Int
 ): Serializable
